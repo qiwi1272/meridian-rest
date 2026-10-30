@@ -23,7 +23,7 @@ build:
 rest: vet test
 	go build ./...
 
-# Optional: hits api.etherealtest.net (requires network; may need MERIDIAN_PK). Runs the full tree.
+# Optional: hits api.meridiantest.net (requires network; may need MERIDIAN_PK). Runs the full tree.
 test:
 	MERIDIAN_INTEGRATION=1 go test -v ./...
 

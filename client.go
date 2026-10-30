@@ -18,12 +18,18 @@ const USER_AGENT = "meridian-go/1.0.0dev"
 
 type Environment string
 
-// TODO(meridian): switch to the Meridian hosts from https://docs.meridian.xyz (Perpetuals API).
+// Meridian API hosts, see https://docs.meridian.xyz/protocol-reference/api-hosts.
 // The EIP-712 domain is fetched from /v1/rpc/config at runtime, so signing
 // follows the server without code changes.
 const (
-	Testnet Environment = "https://api.etherealtest.net"
-	Mainnet Environment = "https://api.ethereal.trade"
+	Testnet Environment = "https://api.meridiantest.net"
+	Mainnet Environment = "https://api.meridian.xyz"
+
+	// Deprecated: legacy Ethereal hosts. Meridian is a separate deployment;
+	// Ethereal subaccounts, balances and IDs do not carry over.
+	EtherealTestnet Environment = "https://api.etherealtest.net"
+	// Deprecated: see EtherealTestnet.
+	EtherealMainnet Environment = "https://api.ethereal.trade"
 )
 
 type Client struct {

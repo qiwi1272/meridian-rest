@@ -6,7 +6,7 @@
 
 Lightweight golang client for interacting with the [Meridian](https://meridian.xyz) API (formerly Ethereal).
 
-> **Rebrand in progress:** Ethereal is now Meridian. The module path, package name and API hosts still use the old `ethereal` names for now. See [REBRAND.md](./REBRAND.md) for what is left.
+> **Rebrand in progress:** Ethereal is now Meridian, and `rest.Testnet` / `rest.Mainnet` now point at the Meridian hosts. Meridian is a separate deployment, so register and fund a new subaccount there. The module path and package name still use the old `ethereal` names for now. See [REBRAND.md](./REBRAND.md) for what is left.
 
 ## Features
 

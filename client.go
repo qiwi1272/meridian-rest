@@ -18,7 +18,7 @@ const USER_AGENT = "meridian-go/1.0.0dev"
 
 type Environment string
 
-// TODO(meridian): switch to the meridian.xyz hosts once they are published.
+// TODO(meridian): switch to the Meridian hosts from https://docs.meridian.xyz (Perpetuals API).
 // The EIP-712 domain is fetched from /v1/rpc/config at runtime, so signing
 // follows the server without code changes.
 const (

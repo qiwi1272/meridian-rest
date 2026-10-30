@@ -17,12 +17,14 @@ information from Meridian or on decisions that break things for current users.
 
 - [ ] **API hosts.** `Testnet` / `Mainnet` in `client.go` still point to
       `api.etherealtest.net` / `api.ethereal.trade` (marked `TODO(meridian)`).
-      Swap them once Meridian publishes its hosts. Keep the old values as
-      deprecated aliases while the old hosts still work.
+      Swap them for the hosts in the Perpetuals API section of
+      https://docs.meridian.xyz. Keep the old values as deprecated aliases while
+      the old hosts still work.
 - [ ] **EIP-712 domain.** Nothing to change in code: `InitDomain` fetches the
       domain from `/v1/rpc/config`. If the server's domain `name` changes from
       `"Ethereal"`, update `testdata/rpc_config.json` and the golden domain hash
-      in `client_http_test.go` to match the real response.
+      in `client_http_test.go` to match the real response. Meridian now runs on
+      Robinhood Chain, so expect `chainId` and `verifyingContract` to change too.
 
 ## Breaking changes: decide and release together
 

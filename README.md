@@ -6,11 +6,15 @@
 
 Lightweight golang client for interacting with the [Meridian](https://meridian.xyz) API (formerly Ethereal).
 
-> **Rebrand in progress:** Ethereal is now Meridian, and `rest.Testnet` / `rest.Mainnet` now point at the Meridian hosts. Meridian is a separate deployment, so register and fund a new subaccount there. The module path and package name still use the old `ethereal` names for now. See [REBRAND.md](./REBRAND.md) for what is left.
+## Migrating from Ethereal
+
+- `rest.Testnet` / `rest.Mainnet` now point at `api.meridiantest.net` / `api.meridian.xyz`. The old hosts remain as deprecated `rest.EtherealTestnet` / `rest.EtherealMainnet`.
+- Meridian is a separate deployment: Ethereal subaccounts, balances and IDs do not carry over. Register and fund a new subaccount.
+- The EIP-712 domain is still loaded from `/v1/rpc/config`, so signing needs no changes.
+- See Meridian's [Migrate from Ethereal](https://docs.meridian.xyz/developer-guides/trading-api/migrate-from-ethereal) guide for the full list of API changes.
 
 ## Features
 
-- Server -> Client Protobuf support.
 - Batch execution support (concurrent, ordered, type-safe)
 - EIP-712 data signing
 - Automatic nonce, timestamp, and subaccount handling for requests
@@ -49,17 +53,12 @@ For more detail, see the [examples/](./examples/) folder and the file comments i
 - All signable request messages implement the `Signable` interface.
 - Only one subaccount is currently supported; by default the first one discovered is used.
 
-## Modifying the package
-
-- This client depends on protobuf wrappers from [pkg.go.dev/roundinternet.money/protos](https://pkg.go.dev/roundinternet.money/protos)
-- If you want to extend the `.proto` files directly, see the Buf module at [buf.build/round-internet-money/dex](https://buf.build/round-internet-money/dex)
-- Otherwise, use or fork [github.com/roundinternetmoney/protos](github.com/roundinternetmoney/protos)
-
 ## Contributing
 
 Contributions are welcome! Please open issues or pull requests as needed.
 
 ## Todo
 
-- proto Client -> Server messaging.
 - add missing rest methods
+- add Meridian-only fields (`marginMode`, quote-token balances, position fees) and endpoints (`order/cancel-all`, `token/convert`)
+- rename the module path and package from `ethereal` to `meridian`

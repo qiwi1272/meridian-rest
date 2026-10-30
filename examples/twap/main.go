@@ -21,7 +21,7 @@ func main() {
 
 	pk := cmp.Or(os.Getenv("MERIDIAN_PK"), os.Getenv("ETHEREAL_PK"))
 	if pk == "" {
-		log.Fatal("MERIDIAN_PK is required (hex private key, with or without 0x prefix; legacy ETHEREAL_PK is also accepted)")
+		log.Fatal("MERIDIAN_PK is required (hex private key, with or without 0x prefix)")
 	}
 
 	client, err := rest.NewClient(ctx, pk, rest.Testnet)

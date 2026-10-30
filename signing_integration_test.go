@@ -1,7 +1,9 @@
-// Optional live Testnet checks: set ETHEREAL_INTEGRATION=1 (and ETHEREAL_PK if required).
+// Optional live Testnet checks: set MERIDIAN_INTEGRATION=1 (and MERIDIAN_PK if required).
+// The legacy ETHEREAL_INTEGRATION / ETHEREAL_PK names are still accepted.
 package etherealRest
 
 import (
+	"cmp"
 	"context"
 	"crypto/ecdsa"
 	"encoding/hex"
@@ -16,10 +18,10 @@ import (
 )
 
 func TestLive_orderSigning_againstTestnet(t *testing.T) {
-	if os.Getenv("ETHEREAL_INTEGRATION") != "1" {
-		t.Skip("set ETHEREAL_INTEGRATION=1 to run live Testnet signing checks")
+	if cmp.Or(os.Getenv("MERIDIAN_INTEGRATION"), os.Getenv("ETHEREAL_INTEGRATION")) != "1" {
+		t.Skip("set MERIDIAN_INTEGRATION=1 to run live Testnet signing checks")
 	}
-	pk := os.Getenv("ETHEREAL_PK")
+	pk := cmp.Or(os.Getenv("MERIDIAN_PK"), os.Getenv("ETHEREAL_PK"))
 	if pk == "" {
 		pk = "0bb5d63b84421e1268dda020818ae30cf26e7f10e321fb820a8aa69216dea92a"
 	}

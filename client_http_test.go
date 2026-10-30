@@ -69,7 +69,7 @@ func TestClient_Do_errorStatus(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error")
 	}
-	if !strings.Contains(err.Error(), "ethereal error 400") || !strings.Contains(err.Error(), "nope") {
+	if !strings.Contains(err.Error(), "meridian error 400") || !strings.Contains(err.Error(), "nope") {
 		t.Fatalf("unexpected err: %v", err)
 	}
 }

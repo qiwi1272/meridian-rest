@@ -1,10 +1,12 @@
-# Golang Rest Client for Ethereal API
+# Golang Rest Client for Meridian API
 
 [Go Reference](https://pkg.go.dev/github.com/roundinternetmoney/ethereal-rest)
 [Go Report Card](https://goreportcard.com/report/github.com/roundinternetmoney/ethereal-rest)
 [Release](https://github.com/roundinternetmoney/ethereal-rest/actions/workflows/release.yaml)
 
-Lightweight golang client for interacting with the Ethereal API.
+Lightweight golang client for interacting with the [Meridian](https://meridian.xyz) API (formerly Ethereal).
+
+> **Rebrand in progress:** Ethereal is now Meridian. The module path, package name and API hosts still use the old `ethereal` names for now. See [REBRAND.md](./REBRAND.md) for what is left.
 
 ## Features
 
@@ -25,9 +27,9 @@ Lightweight golang client for interacting with the Ethereal API.
 From the client directory:
 
 - `make examples`
-- Run a binary with your key set, for example: `ETHEREAL_PK=<hex> ./bin/example_account_balance`
+- Run a binary with your key set, for example: `MERIDIAN_PK=<hex> ./bin/example_account_balance`
 
-All examples read **`ETHEREAL_PK`** (hex private key, with or without `0x` prefix). They target **testnet** by default (`rest.Testnet`).
+All examples read **`MERIDIAN_PK`** (hex private key, with or without `0x` prefix). The legacy `ETHEREAL_PK` is still accepted as a fallback. They target **testnet** by default (`rest.Testnet`).
 
 | Example | Binary (`make examples`) | What it shows |
 |--------|---------------------------|---------------|

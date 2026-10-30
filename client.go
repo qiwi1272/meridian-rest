@@ -76,6 +76,7 @@ func (e *Client) Do(ctx context.Context, method, path string, body any) ([]byte,
 
 func NewClient(ctx context.Context, pk string, env Environment) (*Client, error) {
 	transport := &http.Transport{
+		Proxy:                 http.ProxyFromEnvironment,
 		MaxIdleConns:          100,
 		MaxIdleConnsPerHost:   100,
 		IdleConnTimeout:       90 * time.Second,

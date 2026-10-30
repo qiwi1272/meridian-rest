@@ -59,6 +59,37 @@ Contributions are welcome! Please open issues or pull requests as needed.
 
 ## Todo
 
-- add missing rest methods
-- add Meridian-only fields (`marginMode`, quote-token balances, position fees) and endpoints (`order/cancel-all`, `token/convert`)
-- rename the module path and package from `ethereal` to `meridian`
+Endpoints the client doesn't cover yet, from the [OpenAPI spec](https://api.meridian.xyz/openapi.json). **New** marks endpoints added or changed in Meridian.
+
+**Orders**
+- [ ] `POST /v1/order/cancel-all`: cancel every open order for the subaccount
+- [ ] `POST /v1/order/batch`: place and cancel in one request (the client currently sends batches as concurrent single requests)
+- [ ] `POST /v1/order/dry-run`: simulate an order (unsigned body)
+- [ ] `GET /v1/order`, `GET /v1/order/{id}`, `GET /v1/order/{id}/group`: query orders
+- [ ] `GET /v1/order/fill`, `GET /v1/order/trade`: fill and trade history
+
+**Positions and fees**
+- [ ] `GET /v1/position/active`, `GET /v1/position/{id}`, `GET /v1/position/fill`, `GET /v1/position/liquidation`
+- [ ] **New** `GET /v1/position-fee`, `GET /v1/position-fee/projected-rate`: mPerp position fees
+- [ ] **New** `GET /v1/funding` (now takes `startTime`/`endTime` with cursor pagination instead of `range`), `GET /v1/funding/projected-rate` (replaces `/v1/funding/projected`)
+
+**Products and market data**
+- [ ] `GET /v1/product/{id}`, `GET /v1/product/market-price`, `GET /v1/product/market-liquidity`
+- [ ] **New** `GET /v1/product/mark-price-gap`: scheduled mark-price gaps for mPerps
+
+**Tokens and transfers**
+- [ ] **New** `POST /v1/token/convert`: move balance between quote-token pools (signed `ConvertToken`)
+- [ ] `GET /v1/token`, `GET /v1/token/{id}`, `GET /v1/token/transfer`
+- [ ] `POST /v1/token/{id}/withdraw`, `GET /v1/token/withdraw` (signed `InitiateWithdraw`)
+
+**Accounts and signers**
+- [ ] `GET /v1/subaccount/{id}`, plus support for more than one subaccount per client
+- [ ] Linked signers: `GET /v1/linked-signer`, `POST /v1/linked-signer/link`, `/refresh`, `/extend`, `DELETE /v1/linked-signer/revoke`
+
+**Utilities**
+- [ ] `GET /v1/time`: sync the clock used for `nonce` / `signedAt`
+- [ ] `GET /v1/rate-limit/config`, `GET /v1/maintenance`
+
+**Models and housekeeping**
+- [ ] Add Meridian fields to the existing models: `marginMode`, `quoteTokenAddress` and `DELISTED` status on `Product`; `positionFeeUsd` / `positionFeeAccruedUsd` on positions and balances
+- [ ] Rename the module path and package from `ethereal` to `meridian`

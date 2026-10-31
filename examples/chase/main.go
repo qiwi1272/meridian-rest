@@ -16,7 +16,7 @@ import (
 	"os"
 	"time"
 
-	rest "github.com/roundinternetmoney/ethereal-rest"
+	rest "github.com/qiwi1272/meridian-rest"
 )
 
 // referencePriceStub stands in for an external oracle or ticker. Replace with

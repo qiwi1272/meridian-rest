@@ -1,6 +1,6 @@
 // TWAP-style execution (composition pattern).
 //
-// This is not a native TWAP or time-sliced order type in ethereal-rest: it is
+// This is not a native TWAP or time-sliced order type in meridian-rest: it is
 // user-land scheduling that submits ordinary limit (or other) orders on a timer.
 // Use tiny size on testnet; stop or back off on repeated API errors.
 package main
@@ -12,7 +12,7 @@ import (
 	"os"
 	"time"
 
-	rest "github.com/roundinternetmoney/ethereal-rest"
+	rest "github.com/qiwi1272/meridian-rest"
 )
 
 func main() {

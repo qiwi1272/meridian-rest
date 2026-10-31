@@ -1,6 +1,6 @@
 // Chase / follow-the-market (composition pattern).
 //
-// There is no "chase" or pegged-order API in ethereal-rest. This example shows
+// There is no "chase" or pegged-order API in this client. This example shows
 // cancel-then-replace driven by a reference price that you must obtain yourself
 // (exchange feed, indexer, etc.). The stub below uses a fake moving reference.
 //
@@ -16,7 +16,7 @@ import (
 	"os"
 	"time"
 
-	rest "github.com/roundinternetmoney/ethereal-rest"
+	rest "github.com/qiwi1272/meridian-rest"
 )
 
 // referencePriceStub stands in for an external oracle or ticker. Replace with

@@ -1,6 +1,6 @@
 // Optional live Testnet checks: set MERIDIAN_INTEGRATION=1 (and MERIDIAN_PK if required).
 // The legacy ETHEREAL_INTEGRATION / ETHEREAL_PK names are still accepted.
-package etherealRest
+package meridianRest
 
 import (
 	"cmp"

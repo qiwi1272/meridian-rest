@@ -1,12 +1,12 @@
-.PHONY: rest examples test test-integration deps version tag release all fmt tidy vet build
+.PHONY: rest examples test test-integration deps version check-version tag release all fmt tidy vet build
 
 # Default CI / release checks: vet, all packages tests, build.
 # Integration (live Testnet): MERIDIAN_INTEGRATION=1 — see `make test-integration` (runs go test ./...).
 
-LATEST_TAG := $(shell git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || echo v0.0.0)
-VERSION := $(patsubst v%,%,$(LATEST_TAG))
-PATCH_VERSION := $(shell echo $(VERSION) | awk -F. '{printf "%d.%d.%d", $$1, $$2, $$3+1}')
-NEW_VERSION ?= $(PATCH_VERSION)
+# Releases are manual: `make release NEW_VERSION=1.1.0` (or the Release workflow).
+# The module path has no /vN suffix, so only v0/v1 versions are valid.
+LATEST_TAG := $(shell git describe --tags --abbrev=0 --match 'v[01].*' 2>/dev/null || echo none)
+RELEASE := $(patsubst v%,%,$(NEW_VERSION))
 
 fmt:
 	go fmt . ./...
@@ -41,16 +41,21 @@ deps:
 	go get -u ./...
 
 version:
-	@echo "Current version: $(VERSION)"
-	@echo "Release version: $(NEW_VERSION)"
+	@echo "Latest v0/v1 tag: $(LATEST_TAG)"
+
+check-version:
+	@echo "$(RELEASE)" | grep -Eq '^[01]\.[0-9]+\.[0-9]+$$' || \
+		{ echo "NEW_VERSION must be 0.x.y or 1.x.y, e.g. make release NEW_VERSION=1.1.0"; exit 1; }
+	@! git rev-parse -q --verify "refs/tags/v$(RELEASE)" >/dev/null || \
+		{ echo "tag v$(RELEASE) already exists"; exit 1; }
 
 tag:
-	git tag -a v$(NEW_VERSION) -m "Release v$(NEW_VERSION)"
-	git push origin v$(NEW_VERSION)
+	git tag -a v$(RELEASE) -m "Release v$(RELEASE)"
+	git push origin v$(RELEASE)
 
-release: rest tag
-	gh release create v$(NEW_VERSION) \
-		--title "v$(NEW_VERSION)" \
-		--notes "Release v$(NEW_VERSION)"
+release: check-version rest tag
+	gh release create v$(RELEASE) \
+		--title "v$(RELEASE)" \
+		--notes "Release v$(RELEASE)"
 
 all: fmt tidy rest

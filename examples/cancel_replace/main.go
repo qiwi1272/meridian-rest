@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	rest "github.com/roundinternetmoney/ethereal-rest"
+	rest "github.com/qiwi1272/meridian-rest"
 )
 
 func main() {

@@ -1,13 +1,14 @@
 # Golang Rest Client for Meridian API
 
-[Go Reference](https://pkg.go.dev/github.com/roundinternetmoney/ethereal-rest)
-[Go Report Card](https://goreportcard.com/report/github.com/roundinternetmoney/ethereal-rest)
-[Release](https://github.com/roundinternetmoney/ethereal-rest/actions/workflows/release.yaml)
+[Go Reference](https://pkg.go.dev/github.com/qiwi1272/meridian-rest)
+[Go Report Card](https://goreportcard.com/report/github.com/qiwi1272/meridian-rest)
+[Release](https://github.com/qiwi1272/meridian-rest/actions/workflows/release.yaml)
 
 Lightweight golang client for interacting with the [Meridian](https://meridian.xyz) API (formerly Ethereal).
 
 ## Migrating from Ethereal
 
+- The module moved from `github.com/roundinternetmoney/ethereal-rest` to `github.com/qiwi1272/meridian-rest`, and the package is now `meridianRest`. Update your imports. Versions up to `v1.0.8` stay available at the old path.
 - `rest.Testnet` / `rest.Mainnet` now point at `api.meridiantest.net` / `api.meridian.xyz`. The old hosts remain as deprecated `rest.EtherealTestnet` / `rest.EtherealMainnet`.
 - Meridian is a separate deployment: Ethereal subaccounts, balances and IDs do not carry over. Register and fund a new subaccount.
 - The EIP-712 domain is still loaded from `/v1/rpc/config`, so signing needs no changes.
@@ -23,8 +24,8 @@ Lightweight golang client for interacting with the [Meridian](https://meridian.x
 ## Getting started
 
 - Requires Go 1.25+.
-- Install from GitHub: `go get github.com/roundinternetmoney/ethereal-rest`
-- Import path: `github.com/roundinternetmoney/ethereal-rest`
+- Install from GitHub: `go get github.com/qiwi1272/meridian-rest`
+- Import path: `github.com/qiwi1272/meridian-rest`
 
 ## Example Usage
 
@@ -52,6 +53,15 @@ For more detail, see the [examples/](./examples/) folder and the file comments i
 - If no private key is passed to the rest client, an error will be returned.
 - All signable request messages implement the `Signable` interface.
 - Only one subaccount is currently supported; by default the first one discovered is used.
+
+## Releasing
+
+Releases are manual and GitHub marks them immutable, so a published tag can't be moved or deleted.
+
+1. Merge to `main`. Merging does not publish anything.
+2. Go to **Actions → Release → Run workflow**, enter the version (for example `1.1.0`) and run it.
+
+The workflow runs the checks, then tags `v<version>` and publishes the GitHub release. Locally, `make release NEW_VERSION=1.1.0` does the same. Only `0.x.y` / `1.x.y` versions that aren't already tagged are accepted, because the module path has no `/vN` suffix.
 
 ## Contributing
 
@@ -92,4 +102,3 @@ Endpoints the client doesn't cover yet, from the [OpenAPI spec](https://api.meri
 
 **Models and housekeeping**
 - [ ] Add Meridian fields to the existing models: `marginMode`, `quoteTokenAddress` and `DELISTED` status on `Product`; `positionFeeUsd` / `positionFeeAccruedUsd` on positions and balances
-- [ ] Rename the module path and package from `ethereal` to `meridian`

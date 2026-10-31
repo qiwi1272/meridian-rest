@@ -1,4 +1,4 @@
-module github.com/roundinternetmoney/ethereal-rest
+module github.com/qiwi1272/meridian-rest
 
 go 1.25.0
 

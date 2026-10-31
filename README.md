@@ -8,9 +8,8 @@ Lightweight golang client for interacting with the [Meridian](https://meridian.x
 
 ## Migrating from Ethereal
 
-- `rest.Testnet` / `rest.Mainnet` now point at `api.meridiantest.net` / `api.meridian.xyz`. The old hosts remain as deprecated `rest.EtherealTestnet` / `rest.EtherealMainnet`.
-- Meridian is a separate deployment: Ethereal subaccounts, balances and IDs do not carry over. Register and fund a new subaccount.
-- The EIP-712 domain is still loaded from `/v1/rpc/config`, so signing needs no changes.
+- `rest.Testnet` / `rest.Mainnet` now point at `api.meridiantest.net` / `api.meridian.xyz`. The old hosts remain as deprecated.
+- Ethereal subaccounts, balances and IDs do not carry over. Register and fund a new subaccount on Meridian.
 - See Meridian's [Migrate from Ethereal](https://docs.meridian.xyz/developer-guides/trading-api/migrate-from-ethereal) guide for the full list of API changes.
 
 ## Features
@@ -23,8 +22,8 @@ Lightweight golang client for interacting with the [Meridian](https://meridian.x
 ## Getting started
 
 - Requires Go 1.25+.
-- Install from GitHub: `go get github.com/roundinternetmoney/ethereal-rest`
-- Import path: `github.com/roundinternetmoney/ethereal-rest`
+- Install from GitHub: `go get github.com/qiwi1272/meridian-rest`
+- Import path: `github.com/roundinternqiwi1272etmoney/meridian-rest`
 
 ## Example Usage
 
@@ -92,4 +91,3 @@ Endpoints the client doesn't cover yet, from the [OpenAPI spec](https://api.meri
 
 **Models and housekeeping**
 - [ ] Add Meridian fields to the existing models: `marginMode`, `quoteTokenAddress` and `DELISTED` status on `Product`; `positionFeeUsd` / `positionFeeAccruedUsd` on positions and balances
-- [ ] Rename the module path and package from `ethereal` to `meridian`

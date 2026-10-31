@@ -1,8 +1,7 @@
 # Golang Rest Client for Meridian API
 
-[Go Reference](https://pkg.go.dev/github.com/qiwi1272/meridian-rest)
-[Go Report Card](https://goreportcard.com/report/github.com/qiwi1272/meridian-rest)
-[Release](https://github.com/qiwi1272/meridian-rest/actions/workflows/release.yaml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/qiwi1272/meridian-rest.svg)](https://pkg.go.dev/github.com/qiwi1272/meridian-rest)
+[![CI](https://github.com/qiwi1272/meridian-rest/actions/workflows/ci.yml/badge.svg)](https://github.com/qiwi1272/meridian-wss/actions/workflows/ci.yml)
 
 Lightweight golang client for interacting with the [Meridian](https://meridian.xyz) API (formerly Ethereal).
 

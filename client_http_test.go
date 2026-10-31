@@ -1,4 +1,4 @@
-package etherealRest
+package meridianRest
 
 import (
 	"context"
@@ -69,7 +69,7 @@ func TestClient_Do_errorStatus(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error")
 	}
-	if !strings.Contains(err.Error(), "ethereal error 400") || !strings.Contains(err.Error(), "nope") {
+	if !strings.Contains(err.Error(), "meridian error 400") || !strings.Contains(err.Error(), "nope") {
 		t.Fatalf("unexpected err: %v", err)
 	}
 }
@@ -131,7 +131,7 @@ func TestInitDomain_setsTypesAndDomainHash(t *testing.T) {
 		t.Fatal("empty domain hex")
 	}
 	// Golden: InitDomain over testdata/rpc_config.json (update if fixture changes).
-	const goldenDomainHex = "67c7a53d8e16034d15f3e8db7d7f152926c03b8caecc0bb351e842de909bf02e"
+	const goldenDomainHex = "f45e2c25657b6ad7b4835073c1c65bec7f6b973d6064b491dd248315296e7d6a"
 	if domainHex != goldenDomainHex {
 		t.Fatalf("domain hash drift: got %s (update goldenDomainHex if testdata/rpc_config.json changed)", domainHex)
 	}

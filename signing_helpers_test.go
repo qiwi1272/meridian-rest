@@ -1,4 +1,4 @@
-package etherealRest
+package meridianRest
 
 import (
 	"encoding/hex"

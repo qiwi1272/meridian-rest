@@ -1,4 +1,4 @@
-package etherealRest
+package meridianRest
 
 import (
 	"bytes"
@@ -14,13 +14,22 @@ import (
 	abi "github.com/ethereum/go-ethereum/signer/core/apitypes"
 )
 
-const USER_AGENT = "ethereal-go/1.0.0dev"
+const USER_AGENT = "meridian-go/1.0.0dev"
 
 type Environment string
 
+// Meridian API hosts, see https://docs.meridian.xyz/protocol-reference/api-hosts.
+// The EIP-712 domain is fetched from /v1/rpc/config at runtime, so signing
+// follows the server without code changes.
 const (
-	Testnet Environment = "https://api.etherealtest.net"
-	Mainnet Environment = "https://api.ethereal.trade"
+	Testnet Environment = "https://api.meridiantest.net"
+	Mainnet Environment = "https://api.meridian.xyz"
+
+	// Deprecated: legacy Ethereal hosts. Meridian is a separate deployment;
+	// Ethereal subaccounts, balances and IDs do not carry over.
+	EtherealTestnet Environment = "https://api.etherealtest.net"
+	// Deprecated: see EtherealTestnet.
+	EtherealMainnet Environment = "https://api.ethereal.trade"
 )
 
 type Client struct {
@@ -60,13 +69,14 @@ func (e *Client) Do(ctx context.Context, method, path string, body any) ([]byte,
 		return nil, err
 	}
 	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		return nil, fmt.Errorf("ethereal error %d: %s", resp.StatusCode, out.String())
+		return nil, fmt.Errorf("meridian error %d: %s", resp.StatusCode, out.String())
 	}
 	return out.Bytes(), nil
 }
 
 func NewClient(ctx context.Context, pk string, env Environment) (*Client, error) {
 	transport := &http.Transport{
+		Proxy:                 http.ProxyFromEnvironment,
 		MaxIdleConns:          100,
 		MaxIdleConnsPerHost:   100,
 		IdleConnTimeout:       90 * time.Second,
@@ -86,7 +96,7 @@ func NewClient(ctx context.Context, pk string, env Environment) (*Client, error)
 
 	// load pk
 	if pk == "" {
-		return nil, errors.New("no private key provided; ETHEREAL_PK not set in environment")
+		return nil, errors.New("no private key provided; set MERIDIAN_PK (or legacy ETHEREAL_PK) in environment")
 	}
 
 	// parse key, set address
@@ -98,7 +108,7 @@ func NewClient(ctx context.Context, pk string, env Environment) (*Client, error)
 	} else {
 		return nil, err
 	}
-	// ethereal env setup
+	// exchange env setup
 	var err error
 	_, err = client.InitDomain(ctx)
 	if err != nil {

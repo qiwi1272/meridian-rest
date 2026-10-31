@@ -1,7 +1,9 @@
-// Optional live Testnet checks: set ETHEREAL_INTEGRATION=1 (and ETHEREAL_PK if required).
-package etherealRest
+// Optional live Testnet checks: set MERIDIAN_INTEGRATION=1 (and MERIDIAN_PK if required).
+// The legacy ETHEREAL_INTEGRATION / ETHEREAL_PK names are still accepted.
+package meridianRest
 
 import (
+	"cmp"
 	"context"
 	"crypto/ecdsa"
 	"encoding/hex"
@@ -16,10 +18,10 @@ import (
 )
 
 func TestLive_orderSigning_againstTestnet(t *testing.T) {
-	if os.Getenv("ETHEREAL_INTEGRATION") != "1" {
-		t.Skip("set ETHEREAL_INTEGRATION=1 to run live Testnet signing checks")
+	if cmp.Or(os.Getenv("MERIDIAN_INTEGRATION"), os.Getenv("ETHEREAL_INTEGRATION")) != "1" {
+		t.Skip("set MERIDIAN_INTEGRATION=1 to run live Testnet signing checks")
 	}
-	pk := os.Getenv("ETHEREAL_PK")
+	pk := cmp.Or(os.Getenv("MERIDIAN_PK"), os.Getenv("ETHEREAL_PK"))
 	if pk == "" {
 		pk = "0bb5d63b84421e1268dda020818ae30cf26e7f10e321fb820a8aa69216dea92a"
 	}
@@ -47,7 +49,7 @@ func TestLive_orderSigning_againstTestnet(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	expectedDomainHash := "baf501bc2614cf7092d082742580b04c176be1815f46e407eab1bc37ba543c05"
+	expectedDomainHash := "f45e2c25657b6ad7b4835073c1c65bec7f6b973d6064b491dd248315296e7d6a"
 	if domainHashString != expectedDomainHash {
 		t.Fatalf("domain hash drift (API may have changed EIP-712 domain): got %s want %s", domainHashString, expectedDomainHash)
 	}
@@ -76,7 +78,7 @@ func TestLive_orderSigning_againstTestnet(t *testing.T) {
 	t.Logf("message hash: %s", common.Bytes2Hex(messageHash))
 	t.Logf("full hash: %s", common.Bytes2Hex(fullHash))
 
-	expectedSignature := "0x82aed7486e9855459f58537e413760597e689d3ba7b859f56b6edc730e044fff2888ccf92cd282a8299d8d6a76f8bf0aa93d97f30340c4bb0d27b626aca62f211b"
+	expectedSignature := "0xbc76ecd2bcd2bab0c6dc989d238bcd0216c4b574b2de0d0141ae205aabdd53532206441c3593e34de96cbe2e1bff501095a73cb2f2dcb05d1e2b03f2db6b24461c"
 	if signature != expectedSignature {
 		t.Fatalf("signature drift: got %s want %s", signature, expectedSignature)
 	}

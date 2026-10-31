@@ -61,7 +61,7 @@ Releases are manual and GitHub marks them immutable, so a published tag can't be
 1. Merge to `main`. Merging does not publish anything.
 2. Go to **Actions → Release → Run workflow**, enter the version (for example `1.1.0`) and run it.
 
-The workflow runs the checks, then tags `v<version>` and publishes the GitHub release. Locally, `make release NEW_VERSION=1.1.0` does the same. Only `0.x.y` / `1.x.y` versions that aren't already tagged are accepted, because the module path has no `/vN` suffix.
+The workflow runs the checks, then tags `v<version>` and publishes the GitHub release marked as **Latest**. Without that flag, GitHub would keep a higher old version such as `v2.0.6` as Latest. Locally, `make release NEW_VERSION=1.1.0` does the same. Only `0.x.y` / `1.x.y` versions that aren't already tagged are accepted, because the module path has no `/vN` suffix.
 
 ## Contributing
 

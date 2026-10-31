@@ -55,6 +55,7 @@ tag:
 
 release: check-version rest tag
 	gh release create v$(RELEASE) \
+		--latest \
 		--title "v$(RELEASE)" \
 		--notes "Release v$(RELEASE)"
 
